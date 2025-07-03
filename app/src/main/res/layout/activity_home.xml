@@ -8,7 +8,7 @@
     tools:context=".Home">
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/profileImg"
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:layout_marginStart="25dp"
@@ -31,7 +31,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/add_button"
+        android:id="@+id/usernameButton"
         android:layout_width="300dp"
         android:layout_height="60dp"
         android:layout_marginStart="55dp"
