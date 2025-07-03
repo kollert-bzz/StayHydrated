@@ -43,7 +43,7 @@
         app:layout_constraintTop_toBottomOf="@+id/titel" />
 
     <TextView
-        android:id="@+id/username"
+        android:id="@+id/addHeader"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="80dp"
@@ -55,7 +55,7 @@
         app:layout_constraintTop_toBottomOf="@+id/titel" />
 
     <EditText
-        android:id="@+id/usernameEdit"
+        android:id="@+id/addInput"
         android:layout_width="150dp"
         android:layout_height="48dp"
         android:layout_marginStart="40dp"
@@ -68,7 +68,7 @@
         app:layout_constraintTop_toBottomOf="@+id/usernameHeader" />
 
     <Button
-        android:id="@+id/usernameButton"
+        android:id="@+id/addButton"
         android:layout_width="150dp"
         android:layout_height="48dp"
         android:layout_marginTop="30dp"
@@ -79,7 +79,7 @@
         android:textStyle="bold"
         app:backgroundTint="@null"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/username" />
+        app:layout_constraintTop_toBottomOf="@+id/addHeader" />
 
     <TextView
         android:id="@+id/goalHeader"
@@ -91,7 +91,7 @@
         android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/usernameEdit" />
+        app:layout_constraintTop_toBottomOf="@+id/addInput" />
 
     <TextView
         android:id="@+id/goal"
@@ -103,7 +103,7 @@
         android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintStart_toEndOf="@+id/goalHeader"
-        app:layout_constraintTop_toBottomOf="@+id/usernameButton" />
+        app:layout_constraintTop_toBottomOf="@+id/addButton" />
 
     <EditText
         android:id="@+id/goalEdit"
