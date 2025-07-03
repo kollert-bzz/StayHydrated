@@ -1,6 +1,8 @@
 package com.tk.myapplication;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.widget.ImageButton;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -20,5 +22,11 @@ public class Profile extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+        ImageButton homeButton = findViewById(R.id.homeButton);
+        homeButton.setOnClickListener(v -> navigateToHome());
+    }
+    private void navigateToHome() {
+        Intent intent = new Intent(this, Home.class);
+        startActivity(intent);
     }
 }
