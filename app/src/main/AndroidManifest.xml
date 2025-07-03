@@ -12,7 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyApplication">
         <activity
-            android:name=".AddWater"
+            android:name=".WaterEntry"
             android:exported="false" />
         <activity
             android:name=".Profile"
