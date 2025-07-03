@@ -1,8 +1,11 @@
 package com.tk.myapplication;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.widget.Button;
+import android.widget.TextView;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 import androidx.activity.EdgeToEdge;
@@ -11,10 +14,9 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-
-
 public class Home extends AppCompatActivity {
 
+    @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,11 +33,19 @@ public class Home extends AppCompatActivity {
 
         CircleImageView profileButton = findViewById(R.id.profileButton);
         profileButton.setOnClickListener(v -> navigateToProfile());
+
+        TextView mlText = findViewById(R.id.ml);
+        SharedPreferences prefs = getSharedPreferences("waterdata", MODE_PRIVATE);
+        int totalWater = prefs.getInt("totalWater", 0);
+        mlText.setText(totalWater + " ml");
     }
 
     private void navigateToWaterEntry() {
         Intent intent = new Intent(this, WaterEntry.class);
+
+
         startActivity(intent);
+
     }
 
     private void navigateToProfile() {
@@ -43,4 +53,3 @@ public class Home extends AppCompatActivity {
         startActivity(intent);
     }
 }
-
