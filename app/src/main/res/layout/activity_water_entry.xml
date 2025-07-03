@@ -7,15 +7,18 @@
     android:layout_height="match_parent"
     tools:context=".WaterEntry">
 
-    <ImageView
-        android:id="@+id/profileImg"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_marginStart="25dp"
-        android:layout_marginTop="30dp"
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/profileButton"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:src="@drawable/pfp_placeholder"
+        android:contentDescription="Open profile"
+        app:civ_border_width="2dp"
+        app:civ_border_color="#0077FF"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:srcCompat="@tools:sample/avatars" />
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="30dp" />
 
     <TextView
         android:id="@+id/titel"
@@ -30,13 +33,26 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <ImageButton
+        android:id="@+id/homeButton"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="25dp"
+        android:backgroundTint="#00FCF5FD"
+        android:contentDescription="Back Home"
+        android:scaleType="centerCrop"
+        android:src="@drawable/home_icon"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <TextView
         android:id="@+id/addHeader"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="40dp"
         android:layout_marginTop="80dp"
-        android:text="Add Water"
+        android:text="Add Water (ml)"
         android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
@@ -51,7 +67,7 @@
         android:layout_marginEnd="40dp"
         android:background="@drawable/edittext_clean_border"
         android:ems="100"
-        android:hint="  Amount in ml"
+        android:hint="Amount in ml"
         android:maxLength="20"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -60,14 +76,14 @@
     <Button
         android:id="@+id/addWater"
         android:layout_width="340dp"
-        android:layout_height="48dp"
+        android:layout_height="54dp"
         android:layout_marginStart="40dp"
         android:layout_marginTop="30dp"
         android:layout_marginEnd="40dp"
-        android:background="@drawable/edittext_border"
         android:text="Add Water"
         android:textSize="18sp"
-        app:backgroundTint="@null"
+        app:backgroundTint="#0077ff"
+        app:cornerRadius="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/date" />
@@ -102,7 +118,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
-        android:layout_marginEnd="37dp"
+        android:layout_marginEnd="35dp"
         android:text="09:35"
         android:textSize="24sp"
         android:textStyle="bold"
