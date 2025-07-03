@@ -57,7 +57,7 @@ public class WaterEntry extends AppCompatActivity {
         dateText.setText(getDate());
         timeText.setText(getTime());
 
-        handler.postDelayed(updateTimeRunnable, 30000);
+        handler.postDelayed(updateTimeRunnable, 1000);
     }
 
     private void getAmount() {
