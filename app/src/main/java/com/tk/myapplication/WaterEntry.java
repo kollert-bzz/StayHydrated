@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationManagerCompat;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -80,19 +81,29 @@ public class WaterEntry extends AppCompatActivity {
         if (!inputText.isEmpty()) {
             try {
                 int newAmount = Integer.parseInt(inputText);
+
+                if (newAmount <= 0) {
+                    addInput.setError("Nur positive Werte erlaubt");
+                    return;
+                }
+
                 int currentAmount = prefs.getInt("totalWater", 0);
                 int updatedAmount = currentAmount + newAmount;
                 prefs.edit().putInt("totalWater", updatedAmount).apply();
 
+                NotificationManagerCompat.from(this).cancel(1);
+
                 addInput.setText("");
                 navigateToHome();
             } catch (NumberFormatException e) {
-                addInput.setError("Bitte gueltige Zahl eingeben");
+                addInput.setError("Bitte gültige Zahl eingeben");
             }
         } else {
             addInput.setError("Feld darf nicht leer sein");
         }
     }
+
+
 
     private String getDate() {
         SimpleDateFormat dateFormat = new SimpleDateFormat("MMMM d, yyyy", Locale.getDefault());

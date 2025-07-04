@@ -91,17 +91,24 @@ public class Profile extends AppCompatActivity {
         if (!input.isEmpty()) {
             try {
                 double liters = Double.parseDouble(input);
+
+                if (liters <= 0) {
+                    inputField.setError("Nur positive Werte erlaubt");
+                    return;
+                }
+
                 int milliliters = (int) (liters * 1000);
                 prefs.edit().putInt("daily_goal_ml", milliliters).apply();
                 displayField.setText(milliliters / 1000.0 + "l");
                 inputField.setText("");
             } catch (NumberFormatException e) {
-                inputField.setError("Bitte gueltige Zahl eingeben");
+                inputField.setError("Bitte gültige Zahl eingeben");
             }
         } else {
             inputField.setError("Feld darf nicht leer sein");
         }
     }
+
 
     private void setUsername(EditText input, TextView header) {
         String newUsername = input.getText().toString().trim();

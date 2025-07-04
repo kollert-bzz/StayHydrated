@@ -47,6 +47,7 @@ dependencies {
     implementation("de.hdodenhof:circleimageview:3.1.0")
     implementation("com.github.yalantis:ucrop:2.2.8")
     implementation("com.airbnb.android:lottie:6.1.0")
+    implementation("com.github.PhilJay:MPAndroidChart:v3.1.0")
 
 
     testImplementation(libs.junit)
