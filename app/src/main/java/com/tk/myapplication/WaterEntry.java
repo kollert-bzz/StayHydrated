@@ -2,6 +2,8 @@ package com.tk.myapplication;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.Handler;
 import android.widget.Button;
@@ -15,6 +17,7 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
@@ -40,11 +43,23 @@ public class WaterEntry extends AppCompatActivity {
             return insets;
         });
 
+
+        SharedPreferences profilePrefs = getSharedPreferences("profile", MODE_PRIVATE);
         CircleImageView profileButton = findViewById(R.id.profileButton);
         profileButton.setOnClickListener(v -> navigateToProfile());
 
+        String imagePath = profilePrefs.getString("profile_image_path", null);
+        if (imagePath != null) {
+            File imgFile = new File(imagePath);
+            if (imgFile.exists()) {
+                Bitmap myBitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
+                profileButton.setImageBitmap(myBitmap);
+            }
+        }
+
         ImageButton homeButton = findViewById(R.id.homeButton);
         homeButton.setOnClickListener(v -> navigateToHome());
+
 
         prefs = getSharedPreferences("waterdata", MODE_PRIVATE);
         addInput = findViewById(R.id.addInput);
@@ -72,7 +87,7 @@ public class WaterEntry extends AppCompatActivity {
                 addInput.setText("");
                 navigateToHome();
             } catch (NumberFormatException e) {
-                addInput.setError("Bitte gültige Zahl eingeben");
+                addInput.setError("Bitte gueltige Zahl eingeben");
             }
         } else {
             addInput.setError("Feld darf nicht leer sein");
