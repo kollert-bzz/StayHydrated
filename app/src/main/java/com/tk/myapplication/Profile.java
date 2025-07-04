@@ -29,7 +29,6 @@ import java.io.IOException;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-
 public class Profile extends AppCompatActivity {
 
     private static final int REQUEST_IMAGE_CAPTURE = 1;
@@ -37,9 +36,7 @@ public class Profile extends AppCompatActivity {
 
     private ImageView profileImageBig;
     private CircleImageView profileButton;
-
     private SharedPreferences prefs;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,7 +60,9 @@ public class Profile extends AppCompatActivity {
         profileImageBig = findViewById(R.id.profileImgBig);
         profileButton = findViewById(R.id.profileButton);
 
-
+        EditText goalEdit = findViewById(R.id.goalEdit);
+        Button goalButton = findViewById(R.id.goalButton);
+        TextView goalText = findViewById(R.id.goal);
 
         prefs = getSharedPreferences("profile", MODE_PRIVATE);
         String savedUsername = prefs.getString("username", "");
@@ -71,7 +70,10 @@ public class Profile extends AppCompatActivity {
 
         loadProfileImage();
 
-        addButton.setOnClickListener(v -> setUsername(addInput, userHeader, prefs));
+        int savedGoal = prefs.getInt("daily_goal_ml", 2000);
+        goalText.setText(savedGoal / 1000.0 + "l");
+
+        addButton.setOnClickListener(v -> setUsername(addInput, userHeader));
 
         imgButton.setOnClickListener(v -> {
             if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
@@ -80,9 +82,28 @@ public class Profile extends AppCompatActivity {
                 requestPermissions(new String[]{Manifest.permission.CAMERA}, REQUEST_CAMERA_PERMISSION);
             }
         });
+
+        goalButton.setOnClickListener(v -> saveDailyGoal(goalEdit, goalText));
     }
 
-    private void setUsername(EditText input, TextView header, SharedPreferences prefs) {
+    private void saveDailyGoal(EditText inputField, TextView displayField) {
+        String input = inputField.getText().toString().trim().replace(",", ".");
+        if (!input.isEmpty()) {
+            try {
+                double liters = Double.parseDouble(input);
+                int milliliters = (int) (liters * 1000);
+                prefs.edit().putInt("daily_goal_ml", milliliters).apply();
+                displayField.setText(milliliters / 1000.0 + "l");
+                inputField.setText("");
+            } catch (NumberFormatException e) {
+                inputField.setError("Bitte gueltige Zahl eingeben");
+            }
+        } else {
+            inputField.setError("Feld darf nicht leer sein");
+        }
+    }
+
+    private void setUsername(EditText input, TextView header) {
         String newUsername = input.getText().toString().trim();
         input.setText("");
         if (!newUsername.isEmpty()) {
@@ -113,14 +134,10 @@ public class Profile extends AppCompatActivity {
             Bitmap imageBitmap = (Bitmap) extras.get("data");
 
             if (imageBitmap != null) {
-
                 Bitmap squareBitmap = cropToSquare(imageBitmap);
-
 
                 profileImageBig.setImageBitmap(squareBitmap);
                 profileButton.setImageBitmap(squareBitmap);
-
-
 
                 try {
                     File file = new File(getFilesDir(), "profile_thumbnail.jpg");
@@ -140,10 +157,8 @@ public class Profile extends AppCompatActivity {
         int width = bitmap.getWidth();
         int height = bitmap.getHeight();
         int newSize = Math.min(width, height);
-
         int xOffset = (width - newSize) / 2;
         int yOffset = (height - newSize) / 2;
-
         return Bitmap.createBitmap(bitmap, xOffset, yOffset, newSize, newSize);
     }
 
