@@ -86,7 +86,7 @@ public class Profile extends AppCompatActivity {
         goalButton.setOnClickListener(v -> saveDailyGoal(goalEdit, goalText));
     }
 
-    private void saveDailyGoal(EditText inputField, TextView displayField) {
+    private void saveDailyGoal(@NonNull EditText inputField, TextView displayField) {
         String input = inputField.getText().toString().trim().replace(",", ".");
         if (!input.isEmpty()) {
             try {
