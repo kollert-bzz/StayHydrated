@@ -12,6 +12,8 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.airbnb.lottie.LottieAnimationView;
+
 import java.io.File;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -26,6 +28,7 @@ public class Home extends AppCompatActivity {
 
     private ProgressBar circleProgress;
     private TextView progressText;
+    private LottieAnimationView sparkleEffect;
 
     @SuppressLint("SetTextI18n")
     @Override
@@ -63,6 +66,7 @@ public class Home extends AppCompatActivity {
 
         circleProgress = findViewById(R.id.circleProgress);
         progressText = findViewById(R.id.progressText);
+        sparkleEffect = findViewById(R.id.sparkleEffect);
 
         updateProgress();
     }
@@ -87,13 +91,19 @@ public class Home extends AppCompatActivity {
         progressText.setText(totalWater + " / " + dailyGoal + " ml");
 
         ImageView trophyIcon = findViewById(R.id.trophyIcon);
+
         if (totalWater >= dailyGoal) {
             trophyIcon.setVisibility(View.VISIBLE);
+            if (!sparkleEffect.isAnimating()) {
+                sparkleEffect.setVisibility(View.VISIBLE);
+                sparkleEffect.playAnimation();
+            }
         } else {
             trophyIcon.setVisibility(View.GONE);
+            sparkleEffect.cancelAnimation();
+            sparkleEffect.setVisibility(View.GONE);
         }
     }
-
 
     private void navigateToWaterEntry() {
         Intent intent = new Intent(this, WaterEntry.class);
