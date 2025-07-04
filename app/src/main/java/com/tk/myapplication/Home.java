@@ -6,7 +6,10 @@ import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import java.io.File;
@@ -20,6 +23,9 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 public class Home extends AppCompatActivity {
+
+    private ProgressBar circleProgress;
+    private TextView progressText;
 
     @SuppressLint("SetTextI18n")
     @Override
@@ -37,7 +43,7 @@ public class Home extends AppCompatActivity {
         Button addWaterButton = findViewById(R.id.addButton);
         addWaterButton.setOnClickListener(v -> navigateToWaterEntry());
 
-        TextView mlText = findViewById(R.id.ml);
+        TextView mlText = findViewById(R.id.progressText);
         SharedPreferences waterPrefs = getSharedPreferences("waterdata", MODE_PRIVATE);
         int totalWater = waterPrefs.getInt("totalWater", 0);
         mlText.setText(totalWater + " ml");
@@ -54,7 +60,40 @@ public class Home extends AppCompatActivity {
                 profileButton.setImageBitmap(myBitmap);
             }
         }
+
+        circleProgress = findViewById(R.id.circleProgress);
+        progressText = findViewById(R.id.progressText);
+
+        updateProgress();
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        updateProgress();
+    }
+
+    private void updateProgress() {
+        SharedPreferences waterPrefs = getSharedPreferences("waterdata", MODE_PRIVATE);
+        SharedPreferences profilePrefs = getSharedPreferences("profile", MODE_PRIVATE);
+
+        int totalWater = waterPrefs.getInt("totalWater", 0);
+        int dailyGoal = profilePrefs.getInt("daily_goal_ml", 2000);
+
+        int progressPercent = (int) ((totalWater / (float) dailyGoal) * 100);
+        if (progressPercent > 100) progressPercent = 100;
+
+        circleProgress.setProgress(progressPercent);
+        progressText.setText(totalWater + " / " + dailyGoal + " ml");
+
+        ImageView trophyIcon = findViewById(R.id.trophyIcon);
+        if (totalWater >= dailyGoal) {
+            trophyIcon.setVisibility(View.VISIBLE);
+        } else {
+            trophyIcon.setVisibility(View.GONE);
+        }
+    }
+
 
     private void navigateToWaterEntry() {
         Intent intent = new Intent(this, WaterEntry.class);
